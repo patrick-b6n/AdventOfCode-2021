@@ -10,7 +10,7 @@ public class Day01
     public class Part1
     {
         [TestMethod]
-        public void DepthIncrease()
+        public void SonarSweep()
         {
             var input = TestHelper.ReadEmbeddedFile(GetType().Assembly, "Input.Day01.txt");
             var result = Solve(input);
@@ -43,7 +43,7 @@ public class Day01
     public class Part2
     {
         [TestMethod]
-        public void SlidingWindow()
+        public void SonarSweep()
         {
             var input = TestHelper.ReadEmbeddedFile(GetType().Assembly, "Input.Day01.txt");
             var result = Solve(input);
