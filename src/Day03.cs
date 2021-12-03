@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,16 +25,14 @@ public class Day03
         {
             var lines = input.Trim().Split("\n").Select(l => l.Trim()).ToList();
 
-            var gamma = new int[lines[0].Length];
-            var epsilon = new int[lines[0].Length];
-            for (var i = 0; i < lines[0].Length; i++)
+            var arr = new BitArray(lines[0].Length);
+            for (var bitPosition = 0; bitPosition < lines[0].Length; bitPosition++)
             {
-                var sum = lines.Sum(l => l[i] == '1' ? 1 : -1);
-                gamma[i] = sum > 0 ? 1 : 0;
-                epsilon[i] = sum < 0 ? 1 : 0;
+                var sum = lines.Sum(l => l[bitPosition] == '1' ? 1 : -1);
+                arr[bitPosition] = sum > 0;
             }
 
-            return Convert.ToInt32(string.Join("", gamma), 2) * Convert.ToInt32(string.Join("", epsilon), 2);
+            return arr.ToInt() * arr.Not().ToInt();
         }
     }
 
@@ -86,7 +85,29 @@ public class Day03
             var oxygenRating = oxygenLines.First();
             var co2Rating = co2Lines.First();
 
-            return Convert.ToInt32(string.Join("", oxygenRating), 2) * Convert.ToInt32(string.Join("", co2Rating), 2);
+            return oxygenRating.BinToInt() * co2Rating.BinToInt();
         }
+    }
+}
+
+internal static class Day03Helper
+{
+    public static int BinToInt(this string str)
+    {
+        return Convert.ToInt32(str, 2);
+    }
+
+    public static int ToInt(this BitArray bitArray)
+    {
+        var val = 0;
+        for (var i = 0; i < bitArray.Count; i++)
+        {
+            if (bitArray[i])
+            {
+                val += (int)Math.Pow(2, bitArray.Count - 1 - i);
+            }
+        }
+
+        return val;
     }
 }
