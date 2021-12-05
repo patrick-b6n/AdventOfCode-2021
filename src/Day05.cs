@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,18 +39,12 @@ public class Day05
                 var changeX = Math.Sign(x2 - x1);
                 var changeY = Math.Sign(y2 - y1);
 
-                if (changeY == 0)
+                if (changeX == 0 || changeY == 0)
                 {
-                    for (var x = x1; x != x2 + changeX; x += changeX)
+                    int x, y;
+                    for (x = x1, y = y1; x != x2 + changeX || y != y2 + changeY; x += changeX, y += changeY)
                     {
-                        map[x, y1] += 1;
-                    }
-                }
-                else if (changeX == 0)
-                {
-                    for (var y = y1; y != y2 + changeY; y += changeY)
-                    {
-                        map[x1, y] += 1;
+                        map[x, y] += 1;
                     }
                 }
             }
@@ -79,7 +72,6 @@ public class Day05
             var lines = input.Trim().Split("\n").Select(l => l.Trim()).ToList();
 
             var map = new int[1000, 1000];
-            var points = new List<Point>();
 
             foreach (var line in lines)
             {
@@ -92,30 +84,10 @@ public class Day05
                 var changeX = Math.Sign(x2 - x1);
                 var changeY = Math.Sign(y2 - y1);
 
-                if (changeY == 0)
+                int x, y;
+                for (x = x1, y = y1; x != x2 + changeX || y != y2 + changeY; x += changeX, y += changeY)
                 {
-                    for (var x = x1; x != x2 + changeX; x += changeX)
-                    {
-                        map[x, y1] += 1;
-                        points.Add(new Point(x, y1));
-                    }
-                }
-                else if (changeX == 0)
-                {
-                    for (var y = y1; y != y2 + changeY; y += changeY)
-                    {
-                        map[x1, y] += 1;
-                        points.Add(new Point(x1, y));
-                    }
-                }
-                else
-                {
-                    int x, y;
-                    for (x = x1, y = y1; x != x2 + changeX && y != y2 + changeY; x += changeX, y += changeY)
-                    {
-                        map[x, y] += 1;
-                        points.Add(new Point(x, y));
-                    }
+                    map[x, y] += 1;
                 }
             }
 
