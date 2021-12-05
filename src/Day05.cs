@@ -94,6 +94,4 @@ public class Day05
             return map.Flatten().Count(n => n > 1);
         }
     }
-
-    private readonly record struct Point(int X, int Y);
 }
