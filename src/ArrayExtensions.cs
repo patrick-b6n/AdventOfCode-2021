@@ -16,6 +16,18 @@ namespace AdventOfCode2021
             arr[0] = tmp; // last to first.
         }
 
+        public static void ShiftLeft<T>(this T[] arr)
+        {
+            var len = arr.Length;
+            var tmp = arr[0]; // save first element
+            for (var i = 0; i < len - 1; i++) // assign value of the previous element
+            {
+                arr[i] = arr[i + 1];
+            }
+
+            arr[len - 1] = tmp; // first to last.
+        }
+
         public static void ShiftRight<T>(this T[] arr, int times)
         {
             for (var i = 0; i < times; i++)
