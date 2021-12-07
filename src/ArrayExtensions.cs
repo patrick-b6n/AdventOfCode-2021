@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AdventOfCode2021
 {
@@ -64,6 +65,12 @@ namespace AdventOfCode2021
                     yield return map[row, col];
                 }
             }
+        }
+
+        public static T Median<T>(this T[] arr)
+        {
+            Array.Sort(arr);
+            return arr[arr.Length / 2];
         }
     }
 }
